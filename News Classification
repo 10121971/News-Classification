@@ -1,0 +1,200 @@
+# importing pandas library
+import pandas as pd
+
+# reading json file
+df=pd.read_json("C:/Users/Bhavya Prakash/Downloads/archive/News_Category_Dataset_v3.json",lines=True)
+
+# looking at the data
+df
+
+# We want to classify the news into different categories listed in the data.
+
+# looking for different categories and their count values
+df.category.value_counts()
+
+# It is clear by looking at the data that our label would be "category".
+# We also know that machine can understand only numbers, therefore we will convert each label to some certain numbers.
+
+# it will create a new column in the dataset with the name 'category_num'.
+df['category_num']=df.category.map({
+    'POLITICS' : 0,
+    'WELLNESS':1,
+    'ENTERTAINMENT':2,
+    'TRAVEL':3,
+    'STYLE & BEAUTY':4,
+    'PARENTING':5,
+    'HEALTHY LIVING':6,
+    'QUEER VOICES':7,
+    'FOOD & DRINK':8,
+    'BUSINESS':9,
+    'COMEDY':10,
+    'SPORTS':11,
+    'BLACK VOICES':12,
+    'HOME & LIVING':13,
+    'PARENTS':14,
+    'THE WORLDPOST':15,
+    'WEDDINGS':16,
+    'WOMEN':17,
+    'CRIME':18,
+    'IMPACT':19,
+    'DIVORCE':20,
+    'WORLD NEWS':21,
+    'MEDIA':22,
+    'WEIRD NEWS':23,
+    'GREEN':24,
+    'WORLDPOST':25,
+    'RELIGION':26,
+    'STYLE':27,
+    'SCIENCE':28,
+    'TECH':29,
+    'TASTE':30,
+    'MONEY':31,
+    'ARTS':32,
+    'ENVIRONMENT':33,
+    'FIFTY':34,
+    'GOOD NEWS':35,
+    'U.S. NEWS':36,
+    'ARTS & CULTURE':37,
+    'COLLEGE':38,
+    'LATINO VOICES':39,
+    'CULTURE & ARTS':40,
+    'EDUCATION':41    
+})
+
+df
+
+# We can clearly see that there is an imbalance among the data. For eg- there are over 35K samples for category
+# 'POLITICS' and as we go down, this amount decrteases significantly to about 1K for category 'EDUCATION'.
+# If we will train the model with this dataset, there are very high chances of data biasing.
+# Therefore to remove data imbalancing, I have used 'Oversampling' method to equalise the number of data for each category.
+
+# This code creates a variable for each category (from category 0 to 41).
+df_class_0=df[df['category_num']==0]
+df_class_1=df[df['category_num']==1]
+df_class_2=df[df['category_num']==2]
+df_class_3=df[df['category_num']==3]
+df_class_4=df[df['category_num']==4]
+df_class_5=df[df['category_num']==5]
+df_class_6=df[df['category_num']==6]
+df_class_7=df[df['category_num']==7]
+df_class_8=df[df['category_num']==8]
+df_class_9=df[df['category_num']==9]
+df_class_10=df[df['category_num']==10]
+df_class_11=df[df['category_num']==11]
+df_class_12=df[df['category_num']==12]
+df_class_13=df[df['category_num']==13]
+df_class_14=df[df['category_num']==14]
+df_class_15=df[df['category_num']==15]
+df_class_16=df[df['category_num']==16]
+df_class_17=df[df['category_num']==17]
+df_class_18=df[df['category_num']==18]
+df_class_19=df[df['category_num']==19]
+df_class_20=df[df['category_num']==20]
+df_class_21=df[df['category_num']==21]
+df_class_22=df[df['category_num']==22]
+df_class_23=df[df['category_num']==23]
+df_class_24=df[df['category_num']==24]
+df_class_25=df[df['category_num']==25]
+df_class_26=df[df['category_num']==26]
+df_class_27=df[df['category_num']==27]
+df_class_28=df[df['category_num']==28]
+df_class_29=df[df['category_num']==29]
+df_class_30=df[df['category_num']==30]
+df_class_31=df[df['category_num']==31]
+df_class_32=df[df['category_num']==32]
+df_class_33=df[df['category_num']==33]
+df_class_34=df[df['category_num']==34]
+df_class_35=df[df['category_num']==35]
+df_class_36=df[df['category_num']==36]
+df_class_37=df[df['category_num']==37]
+df_class_38=df[df['category_num']==38]
+df_class_39=df[df['category_num']==39]
+df_class_40=df[df['category_num']==40]
+df_class_41=df[df['category_num']==41]
+
+# In this way we specify the length of each category to 35602 which is the length of max occuring category i.e.'POLITICS'
+d0=df_class_1.sample(35602,replace=True)
+d1=df_class_1.sample(35602,replace=True)
+d2=df_class_2.sample(35602,replace=True)
+d3=df_class_3.sample(35602,replace=True)
+d4=df_class_4.sample(35602,replace=True)
+d5=df_class_5.sample(35602,replace=True)
+d6=df_class_6.sample(35602,replace=True)
+d7=df_class_7.sample(35602,replace=True)
+d8=df_class_8.sample(35602,replace=True)
+d9=df_class_9.sample(35602,replace=True)
+d10=df_class_10.sample(35602,replace=True)
+d11=df_class_11.sample(35602,replace=True)
+d12=df_class_12.sample(35602,replace=True)
+d13=df_class_13.sample(35602,replace=True)
+d14=df_class_14.sample(35602,replace=True)
+d15=df_class_15.sample(35602,replace=True)
+d16=df_class_16.sample(35602,replace=True)
+d17=df_class_17.sample(35602,replace=True)
+d18=df_class_18.sample(35602,replace=True)
+d19=df_class_19.sample(35602,replace=True)
+d20=df_class_20.sample(35602,replace=True)
+d21=df_class_21.sample(35602,replace=True)
+d22=df_class_22.sample(35602,replace=True)
+d23=df_class_23.sample(35602,replace=True)
+d24=df_class_24.sample(35602,replace=True)
+d25=df_class_25.sample(35602,replace=True)
+d26=df_class_26.sample(35602,replace=True)
+d27=df_class_27.sample(35602,replace=True)
+d28=df_class_28.sample(35602,replace=True)
+d29=df_class_29.sample(35602,replace=True)
+d30=df_class_30.sample(35602,replace=True)
+d31=df_class_31.sample(35602,replace=True)
+d32=df_class_32.sample(35602,replace=True)
+d33=df_class_33.sample(35602,replace=True)
+d34=df_class_34.sample(35602,replace=True)
+d35=df_class_35.sample(35602,replace=True)
+d36=df_class_36.sample(35602,replace=True)
+d37=df_class_37.sample(35602,replace=True)
+d38=df_class_38.sample(35602,replace=True)
+d39=df_class_39.sample(35602,replace=True)
+d40=df_class_40.sample(35602,replace=True)
+d41=df_class_41.sample(35602,replace=True)
+
+# Concatenation of each category into the main dataframe.
+df=pd.concat([d0,d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12,d13,d14,d15,d16,d17,d18,d19,d20,d21,d22,d23,d24,d25,d26,d27,d28,d29,d30,d31,d32,d33,d34,d35,d36,d37,d38,d39,d40,d41],axis='rows')
+
+# It is to be noted that the number of samples have increased from 200K to 1.4M
+df
+
+# Column 'headline' is taken as the only feature for now.
+# Column 'category_num' has been taken as label.
+
+X=df.headline
+Y=df.category_num
+
+# importing 'train_test_split' for splitting the data randomly into our desired ratios.
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(X,Y,test_size=0.25,stratify=Y)
+
+# Imporing pipeline from sklearn
+from sklearn.pipeline import Pipeline
+
+# Importing TF_IDF Vectorizer to perform feature engineering.
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+from sklearn.naive_bayes import MultinomialNB
+
+# creating the pipeline.
+clf=Pipeline([
+    ('v',TfidfVectorizer()),
+    ('model',MultinomialNB())
+
+])
+
+# fitting the pipeline with training datasets 
+clf.fit(x_train,y_train)
+
+# calculating predictions
+predict=clf.predict(x_test)
+
+from sklearn.metrics import classification_report
+
+# The accuracy achieved is 76% and with f1-score also 76%.
+print(classification_report(y_test,predict))
+
